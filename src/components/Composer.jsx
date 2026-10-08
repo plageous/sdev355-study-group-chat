@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Composer() {
+export default function Composer({ onSend }) {
   const [draft, setDraft] = useState("");
 
   function handleKeyDown(e) {
@@ -18,7 +18,7 @@ export default function Composer() {
     if (text === "") {
       return;
     }
-    console.log("send: ", text);
+    onSend(text);
     setDraft("");
   }
 
