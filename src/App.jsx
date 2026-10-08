@@ -15,6 +15,13 @@ function handleSend(text) {
   setMessages({ ...messages, [activeId]: [...messages[activeId], message] });
 }
 
+function handleReact(id) {
+  const updated = messages[activeId].map((m) =>
+    m.id === id ? { ...m, hearts: m.hearts + 1 } : m
+  );
+  setMessages({ ...messages, [activeId]: updated });
+}
+
 export default function App() {
   const [activeId, setActiveId] = useState("general");
   const [messages, setMessages] = useState(SEED_MESSAGES);
@@ -30,7 +37,7 @@ export default function App() {
       />
       <main className="main">
         <ChatHeader channel={channel} isTyping={isTyping} />
-        <MessageList messages={messages[activeId]} />
+        <MessageList messages={messages[activeId]} onReact={handleReact} />
         <Composer onSend={handleSend} onTypingChange={setIsTyping}/>
       </main>
     </div>
